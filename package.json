@@ -1,0 +1,30 @@
+{
+  "name": "pricepinmap",
+  "version": "0.0.1",
+  "description": "PricePinMap SPA with redux and react",
+  "main": "index.js",
+  "bin": {
+    "google-map-spa": "compile.js"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/growlybear/pricepinmap.git"
+  },
+  "keywords": [
+    "SPA",
+    "React",
+    "Redux"
+  ],
+  "author": "Berezovyy Vasyl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/growlybear/pricepinmap/issues"
+  },
+  "homepage": "https://github.com/growlybear/pricepinmap#readme"
+}
