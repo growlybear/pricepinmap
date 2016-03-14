@@ -25,6 +25,7 @@ export default class MapLayout extends React.Component {
         pins.push(
           <Pin
             key={i.key}
+            price={i.soldPrice}
             lat={i.addressObject.location.lat}
             lng={i.addressObject.location.lng}
           />
