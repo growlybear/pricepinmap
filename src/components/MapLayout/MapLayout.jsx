@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import classes from './MapLayout.scss'
 import GoogleMap from 'google-map-react'
 import { shallowCompare } from 'react-addons-shallow-compare'
+import MapInputFields from 'components/MapInputFields/MapInputFields.jsx'
 
 export default class MapLayout extends React.Component {
   static defaultProps = {
@@ -24,6 +25,7 @@ export default class MapLayout extends React.Component {
   render () {
     return (
       <div className={classes.fullScreen}>
+        <MapInputFields />
         <GoogleMap
           bootstrapURLKeys={{
             key: 'AIzaSyB6mLuq06WnR7VV9A_Hzu19bxwhrTv3nDs'
