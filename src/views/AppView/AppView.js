@@ -2,7 +2,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {} from '../../redux/modules/pricepinmap.js'
-// import classes from './AppView.scss'
+import MapLayout from 'components/MapLayout/MapLayout.jsx'
+import classes from './AppView.scss'
 
 // Some components use react-tap-event-plugin to listen for touch events
 // So, we must inject this plugin at the start of our app.
@@ -33,7 +34,9 @@ export class AppView extends React.Component<void, Props, void> {
 
   render () {
     return (
-      <h1>Test</h1>
+      <div className={classes.fullScreen}>
+        <MapLayout />
+      </div>
     )
   }
 }

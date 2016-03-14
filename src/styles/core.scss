@@ -20,4 +20,8 @@
   *:after {
     box-sizing: inherit;
   }
+  .page-container, .view-container {
+    width: 100%;
+    height: 100%;
+  }
 }
