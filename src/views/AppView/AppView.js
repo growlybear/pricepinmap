@@ -1,7 +1,7 @@
 /* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {} from '../../redux/modules/pricepinmap.js'
+import { addPin } from '../../redux/modules/pricepinmap.js'
 import MapLayout from 'components/MapLayout/MapLayout.jsx'
 import classes from './AppView.scss'
 
@@ -17,13 +17,13 @@ injectTapEventPlugin()
 // NOTE: You can run `npm run flow:check` to check for any errors in your
 // code, or `npm i -g flow-bin` to have access to the binary globally.
 type Props = {
-  counter: number,
-  doubleAsync: Function,
-  increment: Function
+  addPin: Function
 };
 
 export class AppView extends React.Component<void, Props, void> {
   static propTypes = {
+    addPin: PropTypes.func.isRequired,
+    pinObjects: PropTypes.array
   };
 
   constructor () {
@@ -35,13 +35,18 @@ export class AppView extends React.Component<void, Props, void> {
   render () {
     return (
       <div className={classes.fullScreen}>
-        <MapLayout />
+        <MapLayout
+          addPin={this.props.addPin}
+          pinObjects={this.props.pinObjects}
+          />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
+  pinObjects: state.pricepinmap.pinObjects
 })
 export default connect((mapStateToProps), {
+  addPin
 })(AppView)

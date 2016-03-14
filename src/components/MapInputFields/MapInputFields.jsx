@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 
 export default class MapInputFields extends React.Component {
   static propTypes = {
+    addPin: PropTypes.func.isRequired
   };
 
   constructor () {
@@ -19,6 +20,11 @@ export default class MapInputFields extends React.Component {
       'soldDate': ''
     }
   }
+
+  addPin () {
+    this.props.addPin(this.state)
+  }
+
   // Since there is no particular event associated with the change the first argument
   // will always be null and the second argument will be the new Date instance.
   soldDateHandler (e, newDate) {
@@ -62,7 +68,7 @@ export default class MapInputFields extends React.Component {
             />
         </span>
         <span className={classes.inputField}>
-          <RaisedButton label='Add' secondary />
+          <RaisedButton label='Add' secondary onClick={::this.addPin}/>
         </span>
       </Paper>
     )
