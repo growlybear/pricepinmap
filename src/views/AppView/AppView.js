@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { addPin } from '../../redux/modules/pricepinmap.js'
 import MapLayout from 'components/MapLayout/MapLayout.jsx'
+import PinCardsList from 'components/PinCardsList/PinCardsList.jsx'
 import classes from './AppView.scss'
 
 // Some components use react-tap-event-plugin to listen for touch events
@@ -39,6 +40,9 @@ export class AppView extends React.Component<void, Props, void> {
           addPin={this.props.addPin}
           pinObjects={this.props.pinObjects}
           />
+        <PinCardsList
+          pinObjects={this.props.pinObjects}
+        />
       </div>
     )
   }

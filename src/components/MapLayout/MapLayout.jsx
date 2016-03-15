@@ -33,7 +33,7 @@ export default class MapLayout extends React.Component {
       })
     }
     return (
-      <div className={classes.fullScreen}>
+      <div className={classes.leftScreen}>
         <MapInputFields
           addPin={this.props.addPin}
         />

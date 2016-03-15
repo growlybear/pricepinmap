@@ -6,15 +6,13 @@ export default class Pin extends React.Component {
 
   static propTypes = {
     $dimensionKey: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.string
   };
 
   render () {
     let style = classes.pin
     const price = this.props.price
     if (price > 0 && price <= 100000) {
-      style += ` ${classes.price1}`
-    } else if (price > 0 && price <= 100000) {
       style += ` ${classes.price2}`
     } else if (price > 100000 && price <= 200000) {
       style += ` ${classes.price3}`
