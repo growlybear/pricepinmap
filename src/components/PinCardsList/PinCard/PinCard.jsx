@@ -30,7 +30,7 @@ export default class PinCard extends React.Component {
           }}
           avatar='http://lorempixel.com/100/100/nature/'
           actAsExpander={this.props.expandable}
-          showExpandableButton={this.props.expandable}
+          showExpandableButton
         />
         <CardText expandable={this.props.expandable}>
           <h5>{this.props.addressLabel}</h5>

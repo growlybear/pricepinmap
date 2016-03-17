@@ -18,6 +18,10 @@ export default class MapLayout extends React.Component {
     pinObjects: PropTypes.array
   };
 
+  handlePinClick (e) {
+    console.log(e)
+  }
+
   render () {
     const pins = []
     let style = classes.fullScreen
@@ -44,6 +48,7 @@ export default class MapLayout extends React.Component {
             key: 'AIzaSyB6mLuq06WnR7VV9A_Hzu19bxwhrTv3nDs'
           }}
           defaultCenter={this.props.center}
+          onChildClick={::this.handlePinClick}
           defaultZoom={this.props.zoom}>
          {pins.map((i) => {
            return (

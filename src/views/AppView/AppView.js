@@ -24,7 +24,8 @@ type Props = {
 export class AppView extends React.Component<void, Props, void> {
   static propTypes = {
     addPin: PropTypes.func.isRequired,
-    pinObjects: PropTypes.array
+    pinObjects: PropTypes.array,
+    center: PropTypes.object
   };
 
   constructor () {
@@ -39,6 +40,7 @@ export class AppView extends React.Component<void, Props, void> {
         <MapLayout
           addPin={this.props.addPin}
           pinObjects={this.props.pinObjects}
+          center={this.props.center}
           />
         <PinCardsList
           pinObjects={this.props.pinObjects}
@@ -49,7 +51,9 @@ export class AppView extends React.Component<void, Props, void> {
 }
 
 const mapStateToProps = (state) => ({
-  pinObjects: state.pricepinmap.pinObjects
+  pinObjects: state.pricepinmap.pinObjects,
+  center: state.pricepinmap.mapCenter,
+  zoom: state.pricepinmap.zoom
 })
 export default connect((mapStateToProps), {
   addPin

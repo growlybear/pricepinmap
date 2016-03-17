@@ -1,4 +1,5 @@
 import ErrorHandler from '../utils/ErrorHandler.js'
+import { fitBounds } from 'google-map-react/utils'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -47,7 +48,32 @@ const ACTION_HANDLERS = {
   [ADD_PIN]: (state, action) => {
     const pinObjects = state.pinObjects.slice()
     pinObjects.push(action.pin)
-    return ({ ...state, 'pinObjects': pinObjects })
+    const allBounds = {
+      's': [],
+      'n': [],
+      'w': [],
+      'e': []
+    }
+    pinObjects.map((i) => {
+      allBounds.s.push(Number(i.addressObject.gmaps.geometry.bounds.south))
+      allBounds.n.push(Number(i.addressObject.gmaps.geometry.bounds.north))
+      allBounds.w.push(Number(i.addressObject.gmaps.geometry.bounds.west))
+      allBounds.e.push(Number(i.addressObject.gmaps.geometry.bounds.east))
+    })
+    const nw = {
+      lat: Math.max.apply(null, allBounds.w),
+      lng: Math.max.apply(null, allBounds.n)
+    }
+    const se = {
+      lat: Math.min.apply(null, allBounds.e),
+      lng: Math.min.apply(null, allBounds.s)
+    }
+    const size = {
+      width: 1400,
+      height: 872
+    }
+    const {center, zoom} = fitBounds({nw, se}, size)
+    return ({ ...state, 'pinObjects': pinObjects, 'mapCenter': center, 'zoom': zoom })
   }
 }
 
@@ -55,7 +81,9 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-  pinObjects: []
+  pinObjects: [],
+  mapCenter: {lat: 0, lng: 0},
+  zoom: 1
 }
 export default function PricePinMapReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

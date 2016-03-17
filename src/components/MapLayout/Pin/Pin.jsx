@@ -9,6 +9,10 @@ export default class Pin extends React.Component {
     price: PropTypes.string
   };
 
+  handleClick () {
+    console.log('click')
+  }
+
   render () {
     let style = classes.pin
     const price = this.props.price
@@ -22,7 +26,7 @@ export default class Pin extends React.Component {
       style += ` ${classes.price5}`
     }
     return (
-      <div className={style}>
+      <div className={style} onClick={::this.handleClick}>
         {this.props.$dimensionKey}
       </div>
     )
