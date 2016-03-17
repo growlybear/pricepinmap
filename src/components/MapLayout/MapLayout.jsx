@@ -7,8 +7,8 @@ import Pin from './Pin/Pin.jsx'
 
 export default class MapLayout extends React.Component {
   static defaultProps = {
-    center: {lat: 59.938043, lng: 30.337157},
-    zoom: 9
+    center: {lat: 0, lng: 0},
+    zoom: 1
   };
 
   static propTypes = {
@@ -20,6 +20,7 @@ export default class MapLayout extends React.Component {
 
   render () {
     const pins = []
+    let style = classes.fullScreen
     if (this.props.pinObjects.length !== 0) {
       this.props.pinObjects.map((i) => {
         pins.push(
@@ -31,9 +32,10 @@ export default class MapLayout extends React.Component {
           />
           )
       })
+      style = classes.leftScreen
     }
     return (
-      <div className={classes.leftScreen}>
+      <div className={style}>
         <MapInputFields
           addPin={this.props.addPin}
         />

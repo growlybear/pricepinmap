@@ -12,6 +12,7 @@ export default class PinCardsList extends React.Component {
 
   render () {
     const pins = []
+    let style = classes.fullScreen
     if (this.props.pinObjects.length !== 0) {
       this.props.pinObjects.map((i) => {
         let expandable = true
@@ -29,10 +30,11 @@ export default class PinCardsList extends React.Component {
           />
           )
       })
+      style = classes.rightPartScreen
     }
     pins.reverse()
     return (
-      <Paper zDepth={5} className={classes.rightPartScreen}>
+      <Paper zDepth={5} className={style}>
      {pins.map((i) => {
        return (
           i
