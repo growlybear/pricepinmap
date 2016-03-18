@@ -3,23 +3,49 @@ import React, { PropTypes } from 'react'
 import classes from './PinCardsList.scss'
 import PinCard from './PinCard/PinCard.jsx'
 import Paper from 'material-ui/lib/paper'
+import _ from 'lodash'
 
 export default class PinCardsList extends React.Component {
 
   static propTypes = {
-    pinObjects: PropTypes.array
+    pinObjects: PropTypes.array,
+    showPinCardId: PropTypes.string
   };
 
+  constructor () {
+    super()
+    this.state = {
+      'pinsCard': [],
+      'pinObjects': [],
+      'showPinCardId': ''
+    }
+  }
+
+  componentWillReceiveProps (nextprops) {
+    if (_.isEqual(this.state.pinObjects, nextprops.pinObjects)) {
+      this.setState({
+        'pinsCard': [],
+        'pinObjects': nextprops.pinObjects,
+        'showPinCardId': nextprops.showPinCardId
+      })
+    } else {
+      this.setState({
+        'pinsCard': [],
+        'pinObjects': nextprops.pinObjects,
+        'showPinCardId': ''
+      })
+    }
+  }
+
   render () {
-    const pins = []
     let style = classes.fullScreen
-    if (this.props.pinObjects.length !== 0) {
-      this.props.pinObjects.map((i) => {
+    if (this.state.pinObjects.length !== 0) {
+      this.state.pinObjects.map((i) => {
         let expandable = false
-        if (this.props.pinObjects.length === i.key) {
+        if (this.state.pinObjects.length === i.key || Number(this.state.showPinCardId) === Number(i.key)) {
           expandable = true
         }
-        pins.push(
+        this.state.pinsCard.push(
           <PinCard
             expand={expandable}
             key={i.key}
@@ -32,10 +58,10 @@ export default class PinCardsList extends React.Component {
       })
       style = classes.rightPartScreen
     }
-    pins.reverse()
+    this.state.pinsCard.reverse()
     return (
       <Paper zDepth={5} className={style}>
-     {pins.map((i) => {
+     {this.state.pinsCard.map((i) => {
        return (
           i
         )

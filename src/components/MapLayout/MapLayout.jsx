@@ -14,12 +14,13 @@ export default class MapLayout extends React.Component {
   static propTypes = {
     center: PropTypes.object.isRequired,
     addPin: PropTypes.func.isRequired,
+    handleClickPinMap: PropTypes.func.isRequired,
     zoom: PropTypes.number.isRequired,
     pinObjects: PropTypes.array
   };
 
   handlePinClick (e) {
-    console.log(e)
+    this.props.handleClickPinMap(e)
   }
 
   render () {

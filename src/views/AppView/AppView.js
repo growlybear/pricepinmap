@@ -31,7 +31,14 @@ export class AppView extends React.Component<void, Props, void> {
   constructor () {
     super()
     this.state = {
+      'showPinCardId': ''
     }
+  }
+
+  handleClickPinMap (id) {
+    this.setState({
+      'showPinCardId': id
+    })
   }
 
   render () {
@@ -41,9 +48,11 @@ export class AppView extends React.Component<void, Props, void> {
           addPin={this.props.addPin}
           pinObjects={this.props.pinObjects}
           center={this.props.center}
+          handleClickPinMap={::this.handleClickPinMap}
           />
         <PinCardsList
           pinObjects={this.props.pinObjects}
+          showPinCardId={this.state.showPinCardId}
         />
       </div>
     )
