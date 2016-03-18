@@ -1,0 +1,32 @@
+.pinCard{
+  width: 100%;
+}
+.pinCardHeader{
+  height: 100px;
+  padding: 15px;
+}
+.headerImage{
+  width: 75px;
+  height: 75px;
+}
+.headerTitle{
+  display: inline-block;
+  position: relative;
+  bottom: 30px;
+  left: 20px;
+}
+.headerButton{
+  display: inline-block;
+  float: right;
+  top: 20px;
+  position: relative;
+}
+.displayContent{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  display: block;
+}
+.hideContent{
+  display: none;
+}

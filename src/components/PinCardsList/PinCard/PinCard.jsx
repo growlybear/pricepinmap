@@ -1,45 +1,66 @@
 
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardHeader from 'material-ui/lib/card/card-header'
-import CardText from 'material-ui/lib/card/card-text'
+import Paper from 'material-ui/lib/paper'
+import classes from './PinCard.scss'
 import moment from 'moment'
+import RaisedButton from 'material-ui/lib/raised-button'
 
 export default class PinCard extends React.Component {
 
   static propTypes = {
     price: PropTypes.string,
-    expandable: PropTypes.bool,
+    expand: PropTypes.bool,
     title: PropTypes.number,
     date: PropTypes.string,
     addressLabel: PropTypes.string
   };
 
+  constructor () {
+    super()
+    this.state = {
+      'expand': false
+    }
+  }
+
+  componentDidMount () {
+    this.setState({
+      'expand': this.props.expand
+    })
+  }
+
+  componentWillReceiveProps (nextprops) {
+    this.setState({
+      'expand': nextprops.expand
+    })
+  }
+
+  handleExpandButtonClick () {
+    this.setState({
+      'expand': !this.state.expand
+    })
+  }
+
   render () {
     const date = moment(this.props.date).format('L')
+    const buttonTitle = this.state.expand ? 'hide' : 'show'
+    const expandContentStyle = this.state.expand ? classes.displayContent : classes.hideContent
     return (
-      <Card>
-        <CardHeader
-          title={this.props.title}
-          titleStyle={{
-            'color': 'black',
-            'display': 'block',
-            'position': 'relative',
-            'top': '2px',
-            'fontSize': '30px'
-          }}
-          avatar='http://lorempixel.com/100/100/nature/'
-          actAsExpander={this.props.expandable}
-          showExpandableButton
-        />
-        <CardText expandable={this.props.expandable}>
-          <h5>{this.props.addressLabel}</h5>
-          <h5>Sold: ${this.props.price}</h5>
-          <h5>{date}</h5>
+      <Paper className={classes.pinCard} zDepth={1}>
+        <header className={classes.pinCardHeader}>
+          <img className={classes.headerImage} src='http://lorempixel.com/100/100/nature/' />
+          <h3 className={classes.headerTitle}>{this.props.title}</h3>
+          <div className={classes.headerButton}>
+            <RaisedButton label={buttonTitle} secondary onClick={::this.handleExpandButtonClick} />
+          </div>
+        </header>
+        <div className={expandContentStyle}>
+          <h5>{this.props.addressLabel}<br />
+          Sold: ${this.props.price}<br />
+          {date}</h5>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-        </CardText>
-      </Card>
+        </div>
+      </Paper>
     )
   }
 }

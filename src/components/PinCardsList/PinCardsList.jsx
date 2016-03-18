@@ -15,13 +15,13 @@ export default class PinCardsList extends React.Component {
     let style = classes.fullScreen
     if (this.props.pinObjects.length !== 0) {
       this.props.pinObjects.map((i) => {
-        let expandable = true
+        let expandable = false
         if (this.props.pinObjects.length === i.key) {
-          expandable = false
+          expandable = true
         }
         pins.push(
           <PinCard
-            expandable={expandable}
+            expand={expandable}
             key={i.key}
             title={i.key}
             price={i.soldPrice}
