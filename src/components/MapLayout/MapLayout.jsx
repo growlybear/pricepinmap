@@ -64,10 +64,10 @@ export default class MapLayout extends React.Component {
     if (this.props.pinObjects.length) {
       // Get all dots of all directions
       this.props.pinObjects.map((i) => {
-        allBounds.s.push(Number(i.addressObject.gmaps.geometry.bounds.south))
-        allBounds.n.push(Number(i.addressObject.gmaps.geometry.bounds.north))
-        allBounds.w.push(Number(i.addressObject.gmaps.geometry.bounds.west))
-        allBounds.e.push(Number(i.addressObject.gmaps.geometry.bounds.east))
+        allBounds.s.push(Number(i.addressObject.gmaps.geometry.viewport.south))
+        allBounds.n.push(Number(i.addressObject.gmaps.geometry.viewport.north))
+        allBounds.w.push(Number(i.addressObject.gmaps.geometry.viewport.west))
+        allBounds.e.push(Number(i.addressObject.gmaps.geometry.viewport.east))
       })
       // Get coordinates of two geometry corners that will cover all pins
       const nw = {
