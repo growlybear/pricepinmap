@@ -14,6 +14,9 @@ export default class PinCardsList extends React.Component {
 
   constructor () {
     super()
+    // We want to handle click event and addPin event
+    // So, we need to store pinsCard at the state of the component
+    // In order to update component every time, when new props revieved
     this.state = {
       'pinsCard': [],
       'pinObjects': [],
@@ -22,6 +25,9 @@ export default class PinCardsList extends React.Component {
   }
 
   componentWillReceiveProps (nextprops) {
+    // We need to show description of the last element
+    // So, if it's not recieved click event - we must update all pinObjects
+    // and display expanded information of the last element
     if (_.isEqual(this.state.pinObjects, nextprops.pinObjects)) {
       this.setState({
         'pinsCard': [],
@@ -38,11 +44,19 @@ export default class PinCardsList extends React.Component {
   }
 
   render () {
+    // Initially set styles for CardList to full screen and hide this pard
     let style = classes.fullScreen
+
+    // If there is at least one added pin - show CardList and add click handler for pin
     if (this.state.pinObjects.length !== 0) {
       this.state.pinObjects.map((i) => {
+        const isLastPin = this.state.pinObjects.length === i.key
+        const isClickedPin = Number(this.state.showPinCardId) === Number(i.key)
+        const isClickedLastPin = this.state.pinObjects.length !== Number(this.state.showPinCardId)
+
+        // Initially set to hide description
         let expandable = false
-        if (this.state.pinObjects.length === i.key || Number(this.state.showPinCardId) === Number(i.key)) {
+        if ((isLastPin || isClickedPin) && isClickedLastPin) {
           expandable = true
         }
         this.state.pinsCard.push(
@@ -56,16 +70,18 @@ export default class PinCardsList extends React.Component {
           />
           )
       })
+      // Set style to display CardList
       style = classes.rightPartScreen
     }
+    // Reverse array, because we need to display last pin at the top of the CardList
     this.state.pinsCard.reverse()
     return (
       <Paper zDepth={5} className={style}>
-     {this.state.pinsCard.map((i) => {
-       return (
-          i
-        )
-     }, this)}
+       {this.state.pinsCard.map((i) => {
+         return (
+            i
+          )
+       }, this)}
       </Paper>
     )
   }

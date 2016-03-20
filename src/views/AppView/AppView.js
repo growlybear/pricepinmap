@@ -1,4 +1,3 @@
-/* @flow */
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { addPin } from '../../redux/modules/pricepinmap.js'
@@ -11,17 +10,7 @@ import classes from './AppView.scss'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-// // We use Flow (http://flowtype.org/) to type our component's props
-// and state. I've included both regular propTypes and
-// Flow types, but if you want to try just using Flow you'll want to
-// disable the eslint rule `react/prop-types`.
-// NOTE: You can run `npm run flow:check` to check for any errors in your
-// code, or `npm i -g flow-bin` to have access to the binary globally.
-type Props = {
-  addPin: Function
-};
-
-export class AppView extends React.Component<void, Props, void> {
+export class AppView extends React.Component {
   static propTypes = {
     addPin: PropTypes.func.isRequired,
     pinObjects: PropTypes.array
@@ -35,9 +24,16 @@ export class AppView extends React.Component<void, Props, void> {
   }
 
   handleClickPinMap (id) {
-    this.setState({
-      'showPinCardId': id
-    })
+    // If user click second time on the pin - we must hide expanded information
+    if (this.state.showPinCardId === id) {
+      this.setState({
+        'showPinCardId': ''
+      })
+    } else {
+      this.setState({
+        'showPinCardId': id
+      })
+    }
   }
 
   render () {
@@ -46,6 +42,7 @@ export class AppView extends React.Component<void, Props, void> {
         <MapLayout
           addPin={this.props.addPin}
           pinObjects={this.props.pinObjects}
+          showPinCardId={this.state.showPinCardId}
           handleClickPinMap={::this.handleClickPinMap}
           />
         <PinCardsList

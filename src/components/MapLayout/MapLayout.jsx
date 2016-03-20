@@ -11,6 +11,7 @@ export default class MapLayout extends React.Component {
   static propTypes = {
     addPin: PropTypes.func.isRequired,
     handleClickPinMap: PropTypes.func.isRequired,
+    showPinCardId: PropTypes.string,
     pinObjects: PropTypes.array
   };
 
@@ -28,9 +29,16 @@ export default class MapLayout extends React.Component {
     const pins = []
     if (this.props.pinObjects.length !== 0) {
       this.props.pinObjects.map((i) => {
+        let selected = false
+        const isSelectedPin = i.key === Number(this.props.showPinCardId)
+        const notLastPin = i.key !== this.props.pinObjects.length
+        if ((isSelectedPin) && notLastPin) {
+          selected = true
+        }
         pins.push(
           <Pin
             key={i.key}
+            selected={selected}
             price={i.soldPrice}
             lat={i.addressObject.location.lat}
             lng={i.addressObject.location.lng}
@@ -40,7 +48,7 @@ export default class MapLayout extends React.Component {
       style = classes.leftScreen
     }
 
-    // We will use https://github.com/istarkov/google-map-react#fitbounds-func
+    // We use https://github.com/istarkov/google-map-react#fitbounds-func
     // To dynamically fit bounds on the map.
     // For it we need two geometry corners(NW, SE) and size in px of the map
     // It will return coordinates of the center and the value of zoom.

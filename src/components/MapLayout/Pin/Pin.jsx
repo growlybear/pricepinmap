@@ -7,16 +7,20 @@ export default class Pin extends React.Component {
   static propTypes = {
     $dimensionKey: PropTypes.string,
     $hover: PropTypes.bool,
+    selected: PropTypes.bool,
     price: PropTypes.string
   };
 
   render () {
     let style
-    if (this.props.$hover) {
+    if (this.props.selected) {
+      style += ` ${classes.pinSelected}`
+    } else if (this.props.$hover) {
       style += ` ${classes.pinHover}`
     } else {
       style += ` ${classes.pin}`
     }
+
     const price = this.props.price
     if (price > 0 && price <= 100000) {
       style += ` ${classes.price2}`
