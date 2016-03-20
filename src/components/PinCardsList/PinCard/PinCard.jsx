@@ -9,6 +9,7 @@ export default class PinCard extends React.Component {
 
   static propTypes = {
     price: PropTypes.string,
+    description: PropTypes.string,
     expand: PropTypes.bool,
     title: PropTypes.number,
     date: PropTypes.string,
@@ -57,8 +58,7 @@ export default class PinCard extends React.Component {
           <h5>{this.props.addressLabel}<br />
           Sold: ${this.props.price}<br />
           {date}</h5>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+          {this.props.description}
         </div>
       </Paper>
     )

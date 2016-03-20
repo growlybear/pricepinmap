@@ -65,6 +65,7 @@ export default class PinCardsList extends React.Component {
             key={i.key}
             title={i.key}
             price={i.soldPrice}
+            description={i.description}
             date={i.soldDate}
             addressLabel={i.addressObject.label}
           />

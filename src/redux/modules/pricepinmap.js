@@ -1,4 +1,5 @@
 import ErrorHandler from '../utils/ErrorHandler.js'
+import { getFakeDesctiption } from '../utils/api/APIUtils.js'
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -14,12 +15,15 @@ export const ADD_PIN = 'ADD_PIN'
 export const addPin = (pin) => {
   if (!!pin.soldPrice && !!Date.parse(pin.soldDate) && !!Object.keys(pin.addressObject).length) {
     return (dispatch, getState) => {
-      const key = getState().pricepinmap.pinObjects.length + 1
-      const pinObject = JSON.parse(JSON.stringify(pin))
-      pinObject.key = key
-      dispatch({
-        type: ADD_PIN,
-        pin: pinObject
+      getFakeDesctiption().then((response) => {
+        const key = getState().pricepinmap.pinObjects.length + 1
+        const pinObject = JSON.parse(JSON.stringify(pin))
+        pinObject.key = key
+        pinObject.description = response[0].slice(0, 100)
+        dispatch({
+          type: ADD_PIN,
+          pin: pinObject
+        })
       })
     }
   } else {
