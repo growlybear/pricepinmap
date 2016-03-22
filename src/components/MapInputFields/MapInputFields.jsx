@@ -52,24 +52,26 @@ export default class MapInputFields extends React.Component {
     return (
       <Paper className={classes.fieldsContainer} zDepth={5}>
         <Geosuggest className={classes.geosuggest} onSuggestSelect={::this.suggestAddressHandler}/>
-        <span className={classes.inputField}>
+        <div className={classes.inputField}>
           <DatePicker
-            textFieldStyle={fieldStyle}
+            container='inline'
             hintText='Sold date'
+            textFieldStyle={fieldStyle}
+            mode='landscape'
             onChange={::this.soldDateHandler}
             />
-        </span>
-        <span className={classes.inputField}>
+        </div>
+        <div className={classes.inputField}>
           <TextField
             style={fieldStyle}
             hintText='Sold price'
             type='number'
             onChange={::this.soldPriceHandler}
             />
-        </span>
-        <span className={classes.inputField}>
+        </div>
+        <div className={classes.inputField}>
           <RaisedButton label='Add' secondary onClick={::this.addPin}/>
-        </span>
+        </div>
       </Paper>
     )
   }
