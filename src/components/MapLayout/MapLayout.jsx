@@ -4,6 +4,7 @@ import classes from './MapLayout.scss'
 import GoogleMap from 'google-map-react'
 import MapInputFields from 'components/MapInputFields/MapInputFields.jsx'
 import { fitBounds } from 'google-map-react/utils'
+import _ from 'lodash'
 import Pin from './Pin/Pin.jsx'
 
 export default class MapLayout extends React.Component {
@@ -11,7 +12,7 @@ export default class MapLayout extends React.Component {
   static propTypes = {
     addPin: PropTypes.func.isRequired,
     handleClickPinMap: PropTypes.func.isRequired,
-    showPinCardId: PropTypes.string,
+    showPinCardId: PropTypes.array,
     pinObjects: PropTypes.array
   };
 
@@ -30,7 +31,9 @@ export default class MapLayout extends React.Component {
     if (this.props.pinObjects.length !== 0) {
       this.props.pinObjects.map((i) => {
         let selected = false
-        const isSelectedPin = i.key === Number(this.props.showPinCardId)
+        const isSelectedPin = !!_.find(this.props.showPinCardId, (pin) => {
+          return pin === i.id
+        })
         const notLastPin = i.key !== this.props.pinObjects.length
         if ((isSelectedPin) && notLastPin) {
           selected = true

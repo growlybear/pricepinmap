@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addPin } from '../../redux/modules/pricepinmap.js'
 import MapLayout from 'components/MapLayout/MapLayout.jsx'
 import PinCardsList from 'components/PinCardsList/PinCardsList.jsx'
+import _ from 'lodash'
 import classes from './AppView.scss'
 
 // Some components use react-tap-event-plugin to listen for touch events
@@ -19,19 +20,42 @@ export class AppView extends React.Component {
   constructor () {
     super()
     this.state = {
-      'showPinCardId': ''
+      'showPinCardId': []
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!_.isEqual(this.props.pinObjects, nextProps.pinObjects)) {
+      // We add new pin and we must show last pin that added
+      // But first, we must hide previous last pin
+      const displayedPinDescription = _.remove(this.state.showPinCardId, (n) => {
+        return n !== this.props.pinObjects[this.props.pinObjects.length - 1].key
+      })
+      // Add new last pin to displayed pins description
+      displayedPinDescription.push(nextProps.pinObjects[nextProps.pinObjects.length - 1].key)
+      this.setState({
+        'showPinCardId': displayedPinDescription
+      })
     }
   }
 
   handleClickPinMap (id) {
     // If user click second time on the pin - we must hide expanded information
-    if (this.state.showPinCardId === id) {
+    const isPinSelected = !!_.find(this.state.showPinCardId, (pin) => {
+      return Number(pin) === Number(id)
+    })
+    if (isPinSelected) {
+      const displayedPinDescription = _.remove(this.state.showPinCardId, (n) => {
+        return Number(n) !== Number(id)
+      })
       this.setState({
-        'showPinCardId': ''
+        'showPinCardId': displayedPinDescription
       })
     } else {
+      const displayedPinDescription = this.state.showPinCardId
+      displayedPinDescription.push(id)
       this.setState({
-        'showPinCardId': id
+        'showPinCardId': displayedPinDescription
       })
     }
   }

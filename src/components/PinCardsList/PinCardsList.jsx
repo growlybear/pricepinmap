@@ -9,7 +9,7 @@ export default class PinCardsList extends React.Component {
 
   static propTypes = {
     pinObjects: PropTypes.array,
-    showPinCardId: PropTypes.string
+    showPinCardId: PropTypes.array
   };
 
   constructor () {
@@ -20,7 +20,7 @@ export default class PinCardsList extends React.Component {
     this.state = {
       'pinsCard': [],
       'pinObjects': [],
-      'showPinCardId': ''
+      'showPinCardId': []
     }
   }
 
@@ -28,19 +28,11 @@ export default class PinCardsList extends React.Component {
     // We need to show description of the last element
     // So, if it's not recieved click event - we must update all pinObjects
     // and display expanded information of the last element
-    if (_.isEqual(this.state.pinObjects, nextprops.pinObjects)) {
-      this.setState({
-        'pinsCard': [],
-        'pinObjects': nextprops.pinObjects,
-        'showPinCardId': nextprops.showPinCardId
-      })
-    } else {
-      this.setState({
-        'pinsCard': [],
-        'pinObjects': nextprops.pinObjects,
-        'showPinCardId': ''
-      })
-    }
+    this.setState({
+      'pinsCard': [],
+      'pinObjects': nextprops.pinObjects,
+      'showPinCardId': nextprops.showPinCardId
+    })
   }
 
   render () {
@@ -50,13 +42,12 @@ export default class PinCardsList extends React.Component {
     // If there is at least one added pin - show CardList and add click handler for pin
     if (this.state.pinObjects.length !== 0) {
       this.state.pinObjects.map((i) => {
-        const isLastPin = this.state.pinObjects.length === i.key
-        const isClickedPin = Number(this.state.showPinCardId) === Number(i.key)
-        const isClickedLastPin = this.state.pinObjects.length !== Number(this.state.showPinCardId)
-
+        const showPin = !!_.find(this.state.showPinCardId, (pin) => {
+          return Number(pin) === Number(i.key)
+        })
         // Initially set to hide description
         let expandable = false
-        if ((isLastPin || isClickedPin) && isClickedLastPin) {
+        if (showPin) {
           expandable = true
         }
         this.state.pinsCard.push(
