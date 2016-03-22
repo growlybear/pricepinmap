@@ -20,6 +20,7 @@ export const addPin = (pin) => {
         const pinObject = JSON.parse(JSON.stringify(pin))
         pinObject.key = key
         pinObject.description = response[0].slice(0, 100)
+        console.log(JSON.stringify(pinObject))
         dispatch({
           type: ADD_PIN,
           pin: pinObject

@@ -1,4 +1,3 @@
-
 import React, { PropTypes } from 'react'
 import classes from './MapInputFields.scss'
 import DatePicker from 'material-ui/lib/date-picker/date-picker'
@@ -52,7 +51,7 @@ export default class MapInputFields extends React.Component {
     return (
       <Paper className={classes.fieldsContainer} zDepth={5}>
         <Geosuggest className={classes.geosuggest} onSuggestSelect={::this.suggestAddressHandler}/>
-        <div className={classes.inputFieldDate}>
+        <div className={classes.inputField}>
           <DatePicker
             container='inline'
             hintText='Sold date'
