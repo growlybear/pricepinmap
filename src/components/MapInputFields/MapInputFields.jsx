@@ -52,7 +52,7 @@ export default class MapInputFields extends React.Component {
     return (
       <Paper className={classes.fieldsContainer} zDepth={5}>
         <Geosuggest className={classes.geosuggest} onSuggestSelect={::this.suggestAddressHandler}/>
-        <div className={classes.inputField}>
+        <div className={classes.inputFieldDate}>
           <DatePicker
             container='inline'
             hintText='Sold date'
