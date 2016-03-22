@@ -25,4 +25,29 @@ describe('(Redux Module) PricePinMap', function () {
       expect(state).to.eql({ pinObjects: [] })
     })
   })
+
+  describe('(Action Creator) addPin', function () {
+    let _globalState
+    let _dispatchSpy
+    let _getStateSpy
+
+    beforeEach(function () {
+      _globalState = {
+        pricepinmap: PricePinMapReducer(undefined, {})
+      }
+      _dispatchSpy = sinon.spy((action) => {
+        _globalState = {
+          ..._globalState,
+          pricepinmap: PricePinMapReducer(_globalState.pricepinmap, action)
+        }
+      })
+      _getStateSpy = sinon.spy(() => {
+        return _globalState
+      })
+    })
+
+    it('Should be exported as a function.', function () {
+      expect(addPin).to.be.a('function')
+    })
+  })
 })

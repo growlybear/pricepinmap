@@ -12,7 +12,7 @@ export const ADD_PIN = 'ADD_PIN'
 // if you'd like to learn more you can check out: flowtype.org.
 // DOUBLE NOTE: there is currently a bug with babel-eslint where a `space-infix-ops` error is
 // incorrectly thrown when using arrow functions, hence the oddity.
-export const addPin = (pin) => {
+export const addPin = (pin = {}) => {
   if (!!pin.soldPrice && !!Date.parse(pin.soldDate) && !!Object.keys(pin.addressObject).length) {
     return (dispatch, getState) => {
       getFakeDesctiption().then((response) => {
@@ -20,7 +20,6 @@ export const addPin = (pin) => {
         const pinObject = JSON.parse(JSON.stringify(pin))
         pinObject.key = key
         pinObject.description = response[0].slice(0, 100)
-        console.log(JSON.stringify(pinObject))
         dispatch({
           type: ADD_PIN,
           pin: pinObject
