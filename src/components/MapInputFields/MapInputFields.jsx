@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/lib/raised-button'
 
 export default class MapInputFields extends React.Component {
   static propTypes = {
-    addPin: PropTypes.func.isRequired
+    addPin: PropTypes.func
   };
 
   constructor () {
