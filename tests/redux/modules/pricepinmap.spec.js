@@ -4,21 +4,21 @@ import {
   default as PricePinMapReducer
 } from 'redux/modules/pricepinmap'
 
-describe('(Redux Module) PricePinMap', function () {
-  it('Should export a constant ADD_PIN.', function () {
+describe('(Redux Module) PricePinMap', () => {
+  it('Should export a constant ADD_PIN.', () => {
     expect(ADD_PIN).to.equal('ADD_PIN')
   })
 
-  describe('(Reducer)', function () {
-    it('Should be a function.', function () {
+  describe('(Reducer)', () => {
+    it('Should be a function.', () => {
       expect(PricePinMapReducer).to.be.a('function')
     })
 
-    it('Should initialize with a state of { pinObjects: [] }.', function () {
+    it('Should initialize with a state of { pinObjects: [] }.', () => {
       expect(PricePinMapReducer(undefined, {})).to.eql({ pinObjects: [] })
     })
 
-    it('Should return the previous state if an action was not matched.', function () {
+    it('Should return the previous state if an action was not matched.', () => {
       let state = PricePinMapReducer(undefined, {})
       expect(state).to.eql({ pinObjects: [] })
       state = PricePinMapReducer(state, {type: '@@@@@@@'})
@@ -26,12 +26,12 @@ describe('(Redux Module) PricePinMap', function () {
     })
   })
 
-  describe('(Action Creator) addPin', function () {
+  describe('(Action Creator) addPin', () => {
     let _globalState
     let _dispatchSpy
     let _getStateSpy
 
-    beforeEach(function () {
+    beforeEach(() => {
       _globalState = {
         pricepinmap: PricePinMapReducer(undefined, {})
       }
@@ -46,7 +46,7 @@ describe('(Redux Module) PricePinMap', function () {
       })
     })
 
-    it('Should be exported as a function.', function () {
+    it('Should be exported as a function.', () => {
       expect(addPin).to.be.a('function')
     })
   })
